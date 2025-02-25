@@ -58,20 +58,31 @@ class BST {
         return currentNode;
     }
 
-    //// WRITE BFS METHOD HERE ////
     BFS() {
-        let currentNode = this.root
-        let queue = []
-        let results = []
-        queue.push(currentNode)
+        let currentNode = this.root;
+        let results = [];
+        let queue = [];
+        queue.push(currentNode);
 
         while (queue.length) {
-            currentNode = queue.shift()
-            results.push(currentNode.value)
-
-            if (currentNode.left) queue.push(currentNode.left)
-            if (currentNode.right) queue.push(currentNode.right)
+            currentNode = queue.shift();
+            results.push(currentNode.value);
+            if (currentNode.left) queue.push(currentNode.left);
+            if (currentNode.right) queue.push(currentNode.right);
         }
+        return results;
+    }
+
+    // WRITE DFS_PREORDER METHOD HERE //
+    DFSPreOrder() {
+        let results = []
+        function traverse(currentNode) {
+            results.push(currentNode.value)
+            if (currentNode.left) traverse(currentNode.left)
+            if (currentNode.right) traverse(currentNode.right)
+        }
+        traverse(this.root)
+
         return results
     }
 
@@ -90,7 +101,7 @@ function test() {
     myTree.insert(52);
     myTree.insert(82);
 
-    console.log(myTree.BFS());
+    console.log(myTree.DFSPreOrder());
 }
 
 
@@ -100,6 +111,7 @@ test();
 /*
     EXPECTED OUTPUT:
     ----------------
-    [ 47, 21, 76, 18, 27, 52, 82 ]
+    [ 47, 21, 18, 27, 76, 52, 82 ]
 
 */
+
